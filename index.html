@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Emoji Sky Fly</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <meta name="description" content="Emoji Sky Fly - A colorful flying game with emoji characters">
+    <meta name="keywords" content="emoji, game, flying, mobile, html5">
+    
+    <!-- AdMob Integration -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8744359789411569" crossorigin="anonymous"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/emojis/laughing_emoji.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Mobile optimizations -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#87CEEB">
+</head>
+<body>
+    <div id="gameContainer">
+        <!-- Loading Screen -->
+        <div id="loadingScreen" class="screen">
+            <div class="loading-content">
+                <img src="assets/images/emojis/laughing_emoji.png" alt="Loading" class="loading-emoji">
+                <h1>Emoji Sky Fly</h1>
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+                <p>Loading...</p>
+            </div>
+        </div>
+
+        <!-- Home Screen -->
+        <div id="homeScreen" class="screen hidden">
+            <div class="background-layer">
+                <img src="assets/images/backgrounds/sky_background.png" alt="Sky" class="bg-sky">
+                <img src="assets/images/backgrounds/clouds_layer.png" alt="Clouds" class="bg-clouds">
+            </div>
+            <div class="home-content">
+                <h1 class="game-title">Emoji Sky Fly</h1>
+                <div class="floating-emojis">
+                    <img src="assets/images/emojis/laughing_emoji.png" alt="😂" class="floating-emoji">
+                    <img src="assets/images/emojis/heart_eyes_emoji.png" alt="😍" class="floating-emoji">
+                    <img src="assets/images/emojis/cool_emoji.png" alt="😎" class="floating-emoji">
+                </div>
+                <div class="menu-buttons">
+                    <button id="startGameBtn" class="game-button primary">
+                        <img src="assets/images/ui/play_button.png" alt="Play">
+                        Start Game
+                    </button>
+                    <button id="chooseEmojiBtn" class="game-button">Choose Emoji</button>
+                    <button id="settingsBtn" class="game-button">Settings</button>
+                </div>
+                <!-- Banner Ad Space -->
+                <div id="bannerAdHome" class="banner-ad">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-8744359789411569"
+                         data-ad-slot="8249570190"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Selection Screen -->
+        <div id="characterScreen" class="screen hidden">
+            <div class="background-layer">
+                <img src="assets/images/backgrounds/sky_background.png" alt="Sky" class="bg-sky">
+            </div>
+            <div class="character-content">
+                <h2>Choose Your Emoji</h2>
+                <div class="character-grid">
+                    <div class="character-option" data-emoji="laughing">
+                        <img src="assets/images/emojis/laughing_emoji.png" alt="😂">
+                        <span>Laughing</span>
+                    </div>
+                    <div class="character-option" data-emoji="heart_eyes">
+                        <img src="assets/images/emojis/heart_eyes_emoji.png" alt="😍">
+                        <span>Heart Eyes</span>
+                    </div>
+                    <div class="character-option" data-emoji="cool">
+                        <img src="assets/images/emojis/cool_emoji.png" alt="😎">
+                        <span>Cool</span>
+                    </div>
+                    <div class="character-option" data-emoji="robot">
+                        <img src="assets/images/emojis/robot_emoji.png" alt="🤖">
+                        <span>Robot</span>
+                    </div>
+                    <div class="character-option" data-emoji="alien">
+                        <img src="assets/images/emojis/alien_emoji.png" alt="👽">
+                        <span>Alien</span>
+                    </div>
+                    <div class="character-option" data-emoji="cat">
+                        <img src="assets/images/emojis/cat_emoji.png" alt="🐱">
+                        <span>Cat</span>
+                    </div>
+                </div>
+                <button id="backToHomeBtn" class="game-button">Back</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen hidden">
+            <canvas id="gameCanvas"></canvas>
+            <div class="game-ui">
+                <div class="score-display">
+                    <span id="currentScore">0</span>
+                </div>
+                <button id="pauseBtn" class="pause-button">⏸️</button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen hidden">
+            <div class="background-layer">
+                <img src="assets/images/backgrounds/sky_background.png" alt="Sky" class="bg-sky">
+            </div>
+            <div class="gameover-content">
+                <h2>Game Over!</h2>
+                <div class="falling-emoji">
+                    <img id="fallingEmojiImg" src="assets/images/emojis/laughing_emoji.png" alt="Emoji">
+                </div>
+                <div class="score-summary">
+                    <div class="score-item">
+                        <span>Score:</span>
+                        <span id="finalScore">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span>Best:</span>
+                        <span id="highScore">0</span>
+                    </div>
+                </div>
+                <div class="gameover-buttons">
+                    <button id="retryBtn" class="game-button primary">Retry</button>
+                    <button id="homeBtn" class="game-button">Home</button>
+                    <button id="shareBtn" class="game-button">Share Score</button>
+                </div>
+                <!-- Interstitial Ad Trigger -->
+                <div id="interstitialAdTrigger" class="hidden"></div>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settingsScreen" class="screen hidden">
+            <div class="background-layer">
+                <img src="assets/images/backgrounds/sky_background.png" alt="Sky" class="bg-sky">
+            </div>
+            <div class="settings-content">
+                <h2>Settings</h2>
+                <div class="settings-options">
+                    <div class="setting-item">
+                        <label>Sound Effects</label>
+                        <input type="checkbox" id="soundToggle" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label>Background Music</label>
+                        <input type="checkbox" id="musicToggle" checked>
+                    </div>
+                    <div class="setting-item">
+                        <button id="privacyPolicyBtn" class="link-button">Privacy Policy</button>
+                    </div>
+                    <div class="setting-item">
+                        <button id="termsBtn" class="link-button">Terms & Conditions</button>
+                    </div>
+                </div>
+                <button id="backFromSettingsBtn" class="game-button">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="src/js/game.js"></script>
+    <script src="src/js/ads.js"></script>
+    <script>
+        // Initialize AdSense
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</body>
+</html>
+
